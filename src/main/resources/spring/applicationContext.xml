@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans default-autowire="autodetect"
+<beans default-autowire="byName"
     xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
     xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd ">
  
     <bean id="wicketApplication" class="nl.brogrammers.web.WicketApplication" />
  
@@ -22,26 +24,25 @@
         </property>
     </bean>
  
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="dataSource" name="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName">
-            <value>${jdbc.driver}</value>
+            <value>${hibernate.connection.driver}</value>
         </property>
         <property name="url">
-            <value>${jdbc.url}</value>
+            <value>${hibernate.connection.url}</value>
         </property>
         <property name="username">
-            <value>${jdbc.username}</value>
+            <value>${hibernate.connection.username}</value>
         </property>
         <property name="password">
-            <value>${jdbc.password}</value>
+            <value>${hibernate.connection.password}</value>
         </property>
     </bean>
  
-    <tx:annotation-driven transaction-manager="txManager" />
+    <tx:annotation-driven transaction-manager="transactionManager" />
  
     <!-- setup transaction manager  -->
-    <bean id="txManager"
-        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
@@ -50,19 +51,25 @@
     <bean id="interceptor" class="nl.brogrammers.domain.hibernate.HibernateInterceptor">
     </bean>
  
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
+        <property name="persistenceUnitName" value="irontracker"/>
+        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+ 
     <!-- hibernate session factory -->
     <bean id="sessionFactory"
         class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.connection.pool_size">5</prop>
                 <prop key="hibernate.current_session_context_class">thread</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
-                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+                <prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+<!--                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> -->
                 <prop key="hibernate.hibernate.cache.use_query_cache">true</prop>
             </props>
         </property>
@@ -75,5 +82,6 @@
             </list>
         </property>
     </bean>
-    <context:component-scan base-package="nl.brogrammers" />
+    
+    <jpa:repositories base-package="nl.brogrammers.domain.repositories"/>
 </beans>

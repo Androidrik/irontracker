@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
-	<display-name>weighttracker</display-name>
+	<display-name>irontracker</display-name>
 
 	<!--
 		There are three means to configure Wickets configuration mode and they 
@@ -27,7 +27,7 @@
     </filter>
         
 	<filter>
-		<filter-name>wicket.weighttracker</filter-name>
+		<filter-name>wicket.irontracker</filter-name>
 		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationFactoryClassName</param-name>
@@ -37,6 +37,10 @@
 			<param-name>applicationClassName</param-name>
 			<param-value>nl.brogrammers.web.WicketApplication</param-value>
 		</init-param>
+    	<init-param>
+        	<param-name>applicationBean</param-name>
+        	<param-value>wicketApplication</param-value>
+    	</init-param>		
 	</filter>
 
     <filter-mapping>
@@ -44,7 +48,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 	<filter-mapping>
-		<filter-name>wicket.weighttracker</filter-name>
+		<filter-name>wicket.irontracker</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
