@@ -1,7 +1,7 @@
 package nl.brogrammers;
 
-import nl.brogrammers.web.HomePage;
-import nl.brogrammers.web.WicketApplication;
+import nl.brogrammers.web.IrontrackerWebPage;
+import nl.brogrammers.web.IrontrackerApplication;
 
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
@@ -17,16 +17,16 @@ public class TestHomePage
 	@Before
 	public void setUp()
 	{
-		tester = new WicketTester(new WicketApplication());
+		tester = new WicketTester(new IrontrackerApplication());
 	}
 
 	@Test
 	public void homepageRendersSuccessfully()
 	{
 		//start and render the test page
-		tester.startPage(HomePage.class);
+		tester.startPage(IrontrackerWebPage.class);
 
 		//assert rendered page class
-		tester.assertRenderedPage(HomePage.class);
+		tester.assertRenderedPage(IrontrackerWebPage.class);
 	}
 }

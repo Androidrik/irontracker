@@ -35,7 +35,7 @@
         </init-param>		
 		<init-param>
 			<param-name>applicationClassName</param-name>
-			<param-value>nl.brogrammers.web.WicketApplication</param-value>
+			<param-value>nl.brogrammers.web.IrontrackerApplication</param-value>
 		</init-param>
     	<init-param>
         	<param-name>applicationBean</param-name>
