@@ -2,9 +2,40 @@
 <html xmlns:wicket="http://wicket.apache.org">
 	<head>
 		<meta charset="utf-8" />
-		<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:regular,bold' rel='stylesheet' type='text/css' />
-		<link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Stylesheet" />
 	</head>
 	<body>
+		<div id="header">
+        <!-- Logo -->
+        <a href="/" id="logo" class="ir">Mint.com</a>
+                
+        <!-- Login/Sign up -->
+        <div id="user_auth">
+            <button id="login_button" class="small black login button" tabindex="3">
+                <span class="login">Log in</span>
+            </button>
+            <div class="divider"></div>
+            <button id="signup_button" class="small orange signup button" href="https://wwws.mint.com/login.event?task=S" tabindex="4">
+                <span class="sign_up">Sign up</span>
+            </button>
+            <!-- start credentials form -->
+             <!-- End Credentials form -->
+            <div class="form_box hide"></div> <!-- Form background -->
+        </div> <!-- End user auth -->
+
+    <!-- Skip to main content link for accessibility/screen readers -->
+    <div id="skip">
+      <a href="#main" tabindex="0">Skip top navigation</a>
+    </div>
+        
+        <!-- Primary Navigation -->
+        <div id="nav" class="v2">
+            <a href="/what-is-mint/" class="nav_what_is_mint item">WHAT IS MINT?</a>
+            <a href="/how-it-works/" class="nav_how-it-works item">HOW IT WORKS</a>
+            <a href="/credit-cards/?v=1" class="nav_savings small item">FIND SAVINGS</a>
+            <a href="/community/" class="nav_community small item">COMMUNITY</a>
+            <a href="/company/" class="nav_company small item">COMPANY</a>
+            <a href="/canada" class="nav_canada last small item ir">CANADA</a>
+        </div>
+    </div>	
 	</body>
 </html>
